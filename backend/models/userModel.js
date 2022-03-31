@@ -7,14 +7,26 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    cards: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Card",
+        required: true,
+        title: { type: String, required: true },
+        category: { type: String, required: true },
+        amount: { type: Number, min: 0, required: true },
+        currency: { type: String, required: true, default: "USD" },
+        default: "",
+      },
+    ],
     age: {
       type: Number,
       min: 18,
       max: 120,
       required: true,
       validate: {
-        validator: (v) => v % 2 === 0,
-        message: (prop) => `Age (${prop.value}) must be even`,
+        validator: (v) => v > 0,
+        message: (prop) => `Age (${prop.value}) must be above 0!`,
       },
     },
     email: {

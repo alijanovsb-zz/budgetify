@@ -25,7 +25,7 @@ const authUser = asyncHandler(async (req, res) => {
 
     const token = generateToken(payload);
 
-    res.status(200).json({
+    res.json({
       id: user.id,
       email: user.email,
       role: user.role,
@@ -69,4 +69,43 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, registerUser };
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  await user.remove();
+
+  res.status(200).json({
+    success: true,
+    data: {},
+  });
+});
+
+const editUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  const { name, email, password, age } = req.body;
+
+  user.name = name;
+  user.email = email;
+  user.password = password;
+  user.age = age;
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    data: user,
+  });
+});
+
+export { authUser, registerUser, deleteUser, editUser };

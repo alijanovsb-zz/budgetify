@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import asyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
+import jwt_decode from "jwt-decode";
 import User from "../models/userModel.js";
 
 dotenv.config();
@@ -11,7 +12,7 @@ const generateToken = (payload) => {
   });
 };
 
-//@route POST /users/login
+//@route POST
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -36,7 +37,7 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-//@route POST /users/register
+//@route PATCH
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, age } = req.body;
   const userExists = await User.findOne({ email });
@@ -69,8 +70,16 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+//@route DELETE
 const deleteUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id);
+  let token = req.headers.authorization;
+  if (!token) {
+    res.status(401).send({ message: "Unauthorized" });
+  }
+
+  const decoded = jwt_decode(token.replace("Bearer ", ""));
+
+  const user = await User.findById(decoded.id);
 
   if (!user) {
     res.status(404);
@@ -81,12 +90,22 @@ const deleteUser = asyncHandler(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    data: {},
+    data: {
+      message: `User with id ${decoded.id} was deleted successfully`,
+    },
   });
 });
 
+//@route PUT
 const editUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id);
+  let token = req.headers.authorization;
+  if (!token) {
+    res.status(401).send({ message: "Unauthorized" });
+  }
+
+  const decoded = jwt_decode(token.replace("Bearer ", ""));
+
+  const user = await User.findById(decoded.id);
 
   if (!user) {
     res.status(404);
@@ -95,10 +114,10 @@ const editUser = asyncHandler(async (req, res) => {
 
   const { name, email, password, age } = req.body;
 
-  user.name = name;
-  user.email = email;
-  user.password = password;
-  user.age = age;
+  user.name = name ? name : user.name;
+  user.email = email ? email : user.email;
+  user.password = password ? password : user.password;
+  user.age = age ? age : user.age;
 
   await user.save();
 

@@ -1,15 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 import { AuthFormComponent } from './auth-form/auth-form.component';
+import { RouterModule, Routes } from '@angular/router';
 
-
+const routes: Routes = [
+  {
+    path: 'login',
+    component: AuthFormComponent,
+  },
+];
 
 @NgModule({
-  declarations: [
-    AuthFormComponent
-  ],
+  declarations: [AuthFormComponent],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    SharedModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+  ],
+  // providers: [
+  //   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  // ],
+  exports: [AuthFormComponent],
 })
-export class AuthModule { }
+export class AuthModule {}

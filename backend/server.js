@@ -4,6 +4,7 @@ import userRoutes from "./routes/userRoutes.js";
 import cardRoutes from "./routes/cardRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
 import connectDB from "./config/db.js";
+import cors from "cors";
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ const app = express();
 const logger = (req, res, next) => {
   next();
 };
-
+app.use(cors());
 app.use(logger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

@@ -12,9 +12,9 @@ dotenv.config();
 
 const router = express.Router();
 
-router.post("/", authUser);
-router.patch("/", registerUser);
-router.put("/", editUser, auth);
-router.delete("/", deleteUser, auth);
+router.post("/login", authUser);
+router.post("/register", registerUser);
+router.post("/edit", editUser, auth);
+router.post("/delete", deleteUser, auth);
 
 export default router;

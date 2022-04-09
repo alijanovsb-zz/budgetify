@@ -1,1 +1,14 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container class="sidenav">
+  <mat-sidenav class="sidenav__aside" #aside>Aside menu</mat-sidenav>
+  <mat-sidenav-content class="sidenav__content">
+    <!-- heaader -->
+    <app-header
+      [isLoggedIn]="isLoggedIn"
+      (toggleSidebar)="aside.toggle()"
+      (logout)="logout()"
+    ></app-header>
+
+    <!-- content -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

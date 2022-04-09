@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     BrowserAnimationsModule,
     SharedModule,
     AuthModule,
+    LayoutModule,
     DashboardModule,
     HttpClientModule,
     AppRoutingModule,

@@ -1,0 +1,22 @@
+@use "src/variables.scss" as vars;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  color: vars.$base-color;
+
+  &__logo {
+    font-size: 2rem;
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+
+    > a {
+      color: vars.$base-color;
+      text-decoration: none;
+    }
+  }
+}

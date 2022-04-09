@@ -7,20 +7,23 @@ import { tap } from 'rxjs';
 })
 export class AuthService {
   constructor(private httpClient: HttpClient) {}
+  logStatus = false;
 
   login(credentials: { email: string; password: string }) {
+    this.logStatus = true;
     return this.httpClient
       .post('http://localhost:3000/users/login', credentials)
       .pipe(tap((res: any) => this.setSession(res)));
   }
 
   logout(): void {
+    this.logStatus = false;
     localStorage.removeItem('token');
     localStorage.removeItem('expiresAt');
   }
 
   isLoggedIn(): boolean {
-    return new Date().getTime() < Number(localStorage.getItem('expiresAt'));
+    return this.logStatus;
   }
 
   getToken(): string {

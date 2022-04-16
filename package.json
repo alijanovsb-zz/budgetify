@@ -20,7 +20,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon backend/server.js",
-    "data:import": "node backend/data/seeder"
+    "data:users import": "node backend/data/seeder",
+    "data:transactions": "node backend/data/import/transactions"
   },
   "repository": {
     "type": "git",

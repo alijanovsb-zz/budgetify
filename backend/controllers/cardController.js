@@ -5,6 +5,12 @@ import User from "../models/userModel.js";
 
 dotenv.config();
 
+const getCards = asyncHandler(async (req, res) => {
+  const cards = await Card.find({ owner: req.user });
+
+  res.send(cards);
+});
+
 const addCard = asyncHandler(async (req, res) => {
   const { title, category, amount, currency } = req.body;
 
@@ -72,4 +78,4 @@ const deleteCard = asyncHandler(async (req, res) => {
   });
 });
 
-export { addCard, editCard, deleteCard };
+export { getCards, addCard, editCard, deleteCard };

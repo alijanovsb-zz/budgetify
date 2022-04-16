@@ -1,18 +1,71 @@
 <header class="header" *ngIf="isLoggedIn">
-  <button
-    class="header__icon-button"
-    mat-icon-button
-    (click)="toggleSidebar.emit()"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <div class="header__logo">
-    <a href="/" class="header__logo-link"> Budgetify </a>
+  <div class="header__content">
+    <div class="header__logo">
+      <a href="/" class="header__logo-link"> Budgetify </a>
+    </div>
+
+    <!-- <mat-nav-list class="header__navigaton mobile-view-visible-true"> -->
+    <mat-nav-list
+      [ngClass]="{
+        'mobile-view-visible-true': width < 768 && isOpen
+      }"
+      class="header__navigaton"
+      (click)="toggle()"
+    >
+      <mat-list-item class="header__navigation-item">
+        <a matLine href="#" class="header__navigation-link">Categories</a>
+      </mat-list-item>
+      <mat-list-item class="header__navigation-item">
+        <a matLine href="#" class="header__navigation-link">Subscriptions</a>
+      </mat-list-item>
+      <mat-list-item class="header__navigation-item">
+        <a matLine href="#" class="header__navigation-link">Obligatory</a>
+      </mat-list-item>
+      <mat-list-item class="header__navigation-item">
+        <a matLine href="#" class="header__navigation-link">Statistics</a>
+      </mat-list-item>
+      <mat-list-item
+        class="header__navigation-item"
+        *ngIf="getRole() === 'ADMIN'"
+      >
+        <a matLine href="#" class="header__navigation-link">Admin</a>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <div class="header__profile">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle_outlined_icon</mat-icon>
+        <span class="header__user-name">{{ getUserName() }}</span>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </button>
+        <button mat-menu-item (click)="onLogout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <div class="header__toggle">
+      <button class="header__icon-button" mat-icon-button (click)="toggle()">
+        <mat-icon *ngIf="!isOpen">menu</mat-icon>
+        <mat-icon *ngIf="isOpen" color="warn">close</mat-icon>
+      </button>
+    </div>
   </div>
-  <div class="logout">
-    <button mat-button (click)="onLogout()">
-      <mat-icon>exit_to_app</mat-icon>
-      <span>Logout</span>
+
+  <!-- Sidenav -->
+  <!-- <div class="header__menu">
+    <button
+      class="header__icon-button"
+      mat-icon-button
+      (click)="toggleSidebar.emit()"
+    >
+      <mat-icon>menu</mat-icon>
     </button>
-  </div>
+  </div> -->
+  <!-- !Sidenav -->
 </header>

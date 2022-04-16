@@ -1,11 +1,21 @@
 @use "src/variables.scss" as vars;
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
   color: vars.$base-color;
+  // width: 90%;
+  // margin: 0 auto;
+
+  &__content {
+    overflow: hidden;
+    width: 95%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 9999;
+  }
 
   &__logo {
     font-size: 2rem;
@@ -19,4 +29,68 @@
       text-decoration: none;
     }
   }
+
+  &__navigaton {
+    padding: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #000 !important;
+    transform: translate(100%);
+    transition: transform 0.5s ease-in-out;
+
+    @media (min-width: vars.$md) {
+      transform: none;
+      flex-direction: row;
+      background: transparent;
+      width: auto;
+      height: 100%;
+      position: static;
+    }
+
+    &.mobile-view-visible-true {
+      transform: translate(0);
+      transition: transform 0.5s ease-in-out;
+      > * {
+        color: #fff !important;
+      }
+    }
+  }
+
+  &__profile {
+    @media (max-width: vars.$md) {
+      display: none;
+    }
+  }
+
+  &__toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 9999;
+
+    @media (min-width: vars.$md) {
+      display: none;
+    }
+  }
 }
+
+// &__mobile {
+//   display: none;
+
+//   @media (max-width: vars.$sm) {
+//     display: block;
+//     align-items: center;
+//   }
+// }

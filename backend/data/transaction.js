@@ -1,7 +1,7 @@
 const transactions = [
   {
-    author: "John Doe",
-    card: "1234-5678-9012-3456",
+    author: "62354a5cfbf88f3865ced56a",
+    card: "624526e9ac0ff79224239ad2",
     title: "Salary for December",
     category: "INCOME",
     amount: 100,
@@ -11,9 +11,9 @@ const transactions = [
     attachment: "Files if needed",
   },
   {
-    author: "John Doe",
-    card: "1234-5678-9012-3456",
-    title: "Salary for December",
+    author: "62354a5cfbf88f3865ced56a",
+    card: "624526e9ac0ff79224239ad2",
+    title: "Salary for Janury",
     category: "INCOME",
     amount: 100,
     date: "2020-01-01",
@@ -22,9 +22,9 @@ const transactions = [
     attachment: "Files if needed",
   },
   {
-    author: "John Doe",
-    card: "1234-5678-9012-3456",
-    title: "Salary for December",
+    author: "62354a5cfbf88f3865ced56a",
+    card: "6253a7567a1ba2efe04f8141",
+    title: "Salary for February",
     category: "INCOME",
     amount: 100,
     date: "2020-01-01",

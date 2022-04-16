@@ -1,5 +1,7 @@
 <mat-sidenav-container class="sidenav">
-  <mat-sidenav class="sidenav__aside" #aside>Aside menu</mat-sidenav>
+  <mat-sidenav position="end" class="sidenav__aside" mode="over" #aside
+    >Aside menu</mat-sidenav
+  >
   <mat-sidenav-content class="sidenav__content">
     <!-- heaader -->
     <app-header
@@ -9,6 +11,8 @@
     ></app-header>
 
     <!-- content -->
-    <router-outlet></router-outlet>
+    <section class="sidenav__main-content">
+      <router-outlet></router-outlet>
+    </section>
   </mat-sidenav-content>
 </mat-sidenav-container>

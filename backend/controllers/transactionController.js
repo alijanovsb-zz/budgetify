@@ -4,6 +4,17 @@ import Transaction from "../models/transactionModel.js";
 
 dotenv.config();
 
+const getTransactions = asyncHandler(async (req, res) => {
+  console.log(req);
+  const transactions = await Transaction.find();
+
+  res.status(200).json({
+    success: true,
+    count: transactions.length,
+    data: transactions,
+  });
+});
+
 const createTransaction = asyncHandler(async (req, res) => {
   const {
     card,
@@ -76,4 +87,9 @@ const deleteTransaction = asyncHandler(async (req, res) => {
   });
 });
 
-export { createTransaction, editTransaction, deleteTransaction };
+export {
+  getTransactions,
+  createTransaction,
+  editTransaction,
+  deleteTransaction,
+};

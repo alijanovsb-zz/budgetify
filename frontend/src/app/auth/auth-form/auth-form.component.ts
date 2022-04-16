@@ -18,6 +18,7 @@ export class AuthFormComponent implements OnInit, OnDestroy {
   });
 
   subscription: Subscription = new Subscription();
+  isVisible: boolean = false;
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
@@ -37,5 +38,9 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  togglePasswordVisibility() {
+    this.isVisible = !this.isVisible;
   }
 }

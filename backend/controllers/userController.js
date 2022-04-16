@@ -12,7 +12,6 @@ const generateToken = (payload) => {
   });
 };
 
-//@route POST
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -20,6 +19,7 @@ const authUser = asyncHandler(async (req, res) => {
   if (user && (await user.matchPassword(password))) {
     const payload = {
       id: user.id,
+      name: user.name,
       email: user.email,
       role: user.role,
     };
@@ -28,6 +28,7 @@ const authUser = asyncHandler(async (req, res) => {
 
     res.json({
       id: user.id,
+      name: user.name,
       email: user.email,
       role: user.role,
       token: `Bearer ${token}`,
@@ -37,7 +38,6 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-//@route PATCH
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, age } = req.body;
   const userExists = await User.findOne({ email });
@@ -70,7 +70,6 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-//@route DELETE
 const deleteUser = asyncHandler(async (req, res) => {
   let token = req.headers.authorization;
   if (!token) {
@@ -96,7 +95,6 @@ const deleteUser = asyncHandler(async (req, res) => {
   });
 });
 
-//@route PUT
 const editUser = asyncHandler(async (req, res) => {
   let token = req.headers.authorization;
   if (!token) {

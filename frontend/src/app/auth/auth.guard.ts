@@ -24,7 +24,6 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     if (this.authService.isLoggedIn()) {
-      console.log('first');
       return true;
     }
     return this.router.createUrlTree(['login']);

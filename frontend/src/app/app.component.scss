@@ -1,7 +1,13 @@
+@use "../variables.scss" as vars;
 .sidenav {
   height: 100%;
+  background-color: vars.$base-background-color;
+
+  &__content {
+    display: inline;
+  }
 
   &__aside {
-    min-width: 20rem;
+    min-width: 50rem;
   }
 }

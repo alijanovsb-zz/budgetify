@@ -1,6 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class AuthService {
 
   login(credentials: { email: string; password: string }) {
     return this.httpClient
-      .post('http://localhost:3000/users/login', credentials)
+      .post(`${environment.api}users/login`, credentials)
       .pipe(tap((res: any) => this.setSession(res)));
   }
 

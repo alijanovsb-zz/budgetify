@@ -1,1 +1,6 @@
-<section class="dashboard">Dashboard</section>
+<app-spinner *ngIf="isVisible"></app-spinner>
+<div class="dashboard">
+  <div class="dashboard__accounts">
+    <app-account [accounts]="accounts"></app-account>
+  </div>
+</div>

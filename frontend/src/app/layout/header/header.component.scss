@@ -48,7 +48,7 @@
     transform: translate(100%);
     transition: transform 0.5s ease-in-out;
 
-    @media (min-width: vars.$md) {
+    @media (min-width: vars.$lg) {
       transform: none;
       flex-direction: row;
       background: transparent;
@@ -67,7 +67,7 @@
   }
 
   &__profile {
-    @media (max-width: vars.$md) {
+    @media (max-width: vars.$lg) {
       display: none;
     }
   }
@@ -80,7 +80,7 @@
     position: relative;
     z-index: 9999;
 
-    @media (min-width: vars.$md) {
+    @media (min-width: vars.$lg) {
       display: none;
     }
   }

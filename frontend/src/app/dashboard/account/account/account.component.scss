@@ -1,0 +1,82 @@
+@use "../../../../variables.scss" as vars;
+
+.no__accounts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__info {
+    text-align: center;
+    border-radius: 10px;
+    background-color: vars.$base-card-background-color;
+    color: vars.$secondary-card-text-color;
+    padding: 1rem;
+  }
+}
+
+.account {
+  background: -moz-linear-gradient(
+    315deg,
+    rgba(83, 181, 238, 1) 5%,
+    rgba(233, 136, 208, 1) 30%,
+    rgba(248, 95, 108, 0.75) 75%
+  );
+  background: -webkit-linear-gradient(
+    315deg,
+    rgba(83, 181, 238, 1) 5%,
+    rgba(233, 136, 208, 1) 30%,
+    rgba(248, 95, 108, 0.75) 75%
+  );
+  background: linear-gradient(
+    315deg,
+    rgba(83, 181, 238, 1) 5%,
+    rgba(233, 136, 208, 1) 30%,
+    rgba(248, 95, 108, 0.75) 75%
+  );
+  opacity: 0.25;
+  border-radius: 10px;
+  padding: 2em;
+  margin-bottom: 3em;
+  cursor: pointer;
+
+  &.active {
+    filter: drop-shadow(5px 10px 20px rgba(0, 0, 0, 0.25));
+    opacity: 1;
+  }
+
+  &__currency {
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 64px;
+    background-color: #fff;
+    padding: 5px 25px;
+    border-radius: 50%;
+    color: vars.$base-currency-color;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      color: vars.$base-card-text-color;
+
+      > span.account__type {
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 32px;
+      }
+
+      > span.account__amount {
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 48px;
+      }
+    }
+  }
+}

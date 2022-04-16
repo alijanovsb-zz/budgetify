@@ -1,7 +1,22 @@
+@use "../../../variables.scss" as vars;
 .dashboard {
   background: #eceded;
   margin: 3rem auto;
   width: 95%;
   display: flex;
   justify-content: space-between;
+
+  &__accounts {
+    max-width: 25%;
+    width: 100%;
+  }
+
+  @media screen and (max-width: vars.$lg) {
+    flex-direction: column;
+
+    > div {
+      flex: 1;
+      max-width: 100%;
+    }
+  }
 }

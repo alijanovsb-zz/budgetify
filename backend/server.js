@@ -25,4 +25,7 @@ app.use("/users", userRoutes);
 app.use("/cards", cardRoutes);
 app.use("/transactions", transactionRoutes);
 
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+// app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+app.listen(3000, "0.0.0.0", function () {
+  console.log("Listening to port:  " + 3000);
+});

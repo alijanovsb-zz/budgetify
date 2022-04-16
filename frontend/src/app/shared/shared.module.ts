@@ -9,9 +9,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  declarations: [],
+  declarations: [SpinnerComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -23,6 +25,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatListModule,
     MatCardModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatButtonModule,
@@ -34,6 +37,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatListModule,
     MatCardModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
+    SpinnerComponent,
   ],
 })
 export class SharedModule {}

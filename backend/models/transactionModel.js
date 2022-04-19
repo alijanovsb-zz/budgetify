@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const transactionSchema = new mongoose.Schema(
   {
-    author: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
@@ -17,18 +17,27 @@ const transactionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    category: {
-      type: String,
-      required: true,
-    },
+    categories: [
+      {
+        _id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Category",
+          required: true,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+        type: {
+          type: String,
+          required: true,
+          default: "Expense",
+        },
+      },
+    ],
     amount: {
       type: Number,
-      min: 0,
       required: true,
-      validate: {
-        validator: (v) => v > 0,
-        message: (prop) => `Amount (${prop.value}) cannot be used!`,
-      },
     },
     date: {
       type: Date,
@@ -40,22 +49,15 @@ const transactionSchema = new mongoose.Schema(
     attachment: {
       type: String,
     },
+    payee: {
+      type: String,
+      default: "Sardor Alijanov",
+    },
   },
   {
     timestamps: true,
   }
 );
-
-// transactionSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) {
-//     next();
-//   }
-//   const salt = await bcrypt.genSalt(10);
-
-//   this.password = bcrypt.hashSync(this.password, salt);
-
-//   next();
-// });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);
 

@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-
 import User from "../models/userModel.js";
 import users from "../users.js";
 

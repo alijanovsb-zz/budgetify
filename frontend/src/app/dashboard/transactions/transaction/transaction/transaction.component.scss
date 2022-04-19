@@ -1,0 +1,102 @@
+@use "../../../../../variables.scss" as vars;
+
+.transaction {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1em;
+  margin-bottom: 1em;
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-left {
+      max-width: 15%;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      background-color: #eceded;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    &-center {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+
+      &-top {
+        font-size: 1.5em;
+        line-height: 1.5em;
+        // create mixin for this ex. temp1(value)
+      }
+
+      &-bottom {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 200;
+
+        font-size: 1em;
+        line-height: 1em;
+        // create mixin for this ex. temp1(value)
+
+        &-type,
+        &-date {
+          display: flex;
+          align-items: center;
+        }
+
+        & .not-last {
+          &::after {
+            content: "";
+            width: 3px;
+            height: 3px;
+            border-radius: vars.$button-border-radius;
+            background: #000;
+            display: inline-block;
+            margin: 0 0.5rem;
+          }
+        }
+
+        & .transaction__icon {
+          color: #fff;
+          border-radius: vars.$button-border-radius;
+          background-color: vars.$base-success-color;
+          margin-right: auto;
+
+          &.Expense {
+            background-color: vars.$base-error-color;
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+
+    &-right {
+      align-self: flex-start;
+
+      > .transaction__amount {
+        color: vars.$base-success-color;
+        //
+        font-size: 1.5em;
+        line-height: 1.5em;
+        // create mixin for this ex. temp1(value)
+
+        &.Expense {
+          color: vars.$base-error-color;
+        }
+      }
+    }
+  }
+
+  &__category {
+    font-weight: 700;
+    //
+    font-size: 1.5em;
+    line-height: 1.5em;
+    // create mixin for this ex. temp1(value)
+  }
+}

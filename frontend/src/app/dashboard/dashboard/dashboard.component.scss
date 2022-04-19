@@ -6,9 +6,24 @@
   display: flex;
   justify-content: space-between;
 
+  > div {
+    width: 100%;
+  }
+
   &__accounts {
     max-width: 25%;
-    width: 100%;
+  }
+
+  &__transactions {
+    max-width: 40%;
+    display: flex;
+    > * {
+      width: 100%;
+    }
+  }
+
+  &__actions {
+    max-width: 25%;
   }
 
   @media screen and (max-width: vars.$lg) {

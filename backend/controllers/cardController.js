@@ -6,7 +6,7 @@ import User from "../models/userModel.js";
 dotenv.config();
 
 const getCards = asyncHandler(async (req, res) => {
-  const cards = await Card.find({ owner: req.user });
+  const cards = await Card.find({ user: req.user });
 
   res.send(cards);
 });

@@ -3,4 +3,13 @@
   <div class="dashboard__accounts">
     <app-account [accounts]="accounts"></app-account>
   </div>
+  <div class="dashboard__transactions">
+    <app-transactions
+      *ngIf="transactionsResponce"
+      [transactionsResponce]="transactionsResponce"
+    ></app-transactions>
+  </div>
+  <div class="dashboard__actions">
+    <app-actions></app-actions>
+  </div>
 </div>

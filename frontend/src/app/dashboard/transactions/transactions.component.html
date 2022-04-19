@@ -1,0 +1,23 @@
+<div>
+  <app-search-transaction></app-search-transaction>
+  <div class="transaction__filter-container">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>filter_list</mat-icon>
+      <span class="transaction__filter-container-text">Transaction date</span>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item>
+        <mat-icon>expand_less</mat-icon>
+        <span>Ascending order</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>expand_more</mat-icon>
+        <span>Descending order</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div class="transaction__list" *ngIf="hasData">
+    <app-transaction [transactions]="transactions"></app-transaction>
+  </div>
+  <ng-container *ngIf="!hasData"> No transactions </ng-container>
+</div>

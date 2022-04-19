@@ -25,7 +25,5 @@ export class AccountComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.accounts);
-  }
+  ngOnInit(): void {}
 }

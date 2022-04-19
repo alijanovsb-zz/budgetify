@@ -1,0 +1,10 @@
+.transaction__filter-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.transaction__list {
+  height: 50vh;
+  overflow-y: scroll;
+}

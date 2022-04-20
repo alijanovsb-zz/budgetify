@@ -10,7 +10,6 @@ export class HeaderComponent {
 
   @Output() logout: EventEmitter<void> = new EventEmitter<void>();
   @Output() toggleSidebar: EventEmitter<void> = new EventEmitter<void>();
-  @Output() toggleSidebar1: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {}
   private isMobileMenuOpen: boolean = false;

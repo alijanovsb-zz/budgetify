@@ -10,11 +10,14 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  declarations: [SpinnerComponent],
+  declarations: [SpinnerComponent, DialogComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -28,6 +31,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatDialogModule,
+    MatSelectModule,
   ],
   exports: [
     MatButtonModule,
@@ -41,7 +46,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatExpansionModule,
     MatProgressSpinnerModule,
     SpinnerComponent,
+    DialogComponent,
     MatProgressBarModule,
+    MatDialogModule,
+    MatSelectModule,
   ],
 })
 export class SharedModule {}

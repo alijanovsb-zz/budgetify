@@ -65,7 +65,7 @@
           color: #fff;
           border-radius: vars.$button-border-radius;
           background-color: vars.$base-success-color;
-          margin-right: auto;
+          margin-right: 1rem;
 
           &.Expense {
             background-color: vars.$base-error-color;

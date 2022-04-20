@@ -2,6 +2,9 @@
 <div class="transaction" *ngFor="let transaction of transactions">
   <div class="transaction__content">
     <div class="transaction__content-left">
+      <!-- <span class="transaction__category">{{
+        getCategory(transaction.categories[0].name)
+      }}</span> -->
       <span class="transaction__category">{{
         transaction.categories[0]?.name
       }}</span>

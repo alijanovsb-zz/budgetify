@@ -23,6 +23,8 @@
     align-items: center;
     font-weight: bold;
     cursor: pointer;
+    width: 25%;
+    text-align: start;
 
     > a {
       color: vars.$base-color;
@@ -35,9 +37,7 @@
     top: 0;
     left: 0;
     bottom: 0;
-    // width: 50%;
     width: 100%;
-    // max-width: 50%;
     height: 100vh;
     position: fixed;
     display: flex;
@@ -54,8 +54,7 @@
       transform: none;
       flex-direction: row;
       background: transparent;
-      width: 40%;
-      // max-width: 50%;
+      width: 50%;
       height: 100%;
       position: static;
     }
@@ -70,6 +69,8 @@
   }
 
   &__profile {
+    width: 15%;
+    text-align: end;
     @media (max-width: vars.$lg) {
       display: none;
     }

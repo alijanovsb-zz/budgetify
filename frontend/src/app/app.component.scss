@@ -11,3 +11,7 @@
     min-width: 50rem;
   }
 }
+
+::ng-deep .mat-drawer-container {
+  overflow-y: scroll !important;
+}

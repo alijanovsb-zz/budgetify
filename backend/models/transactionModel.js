@@ -17,24 +17,8 @@ const transactionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    categories: [
-      {
-        _id: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Category",
-          required: true,
-        },
-        name: {
-          type: String,
-          required: true,
-        },
-        type: {
-          type: String,
-          required: true,
-          default: "Expense",
-        },
-      },
-    ],
+    // categories: [{ type: mongoose.Schema.Types.ObjectId, ref: "Category" }],
+    categories: [{}],
     amount: {
       type: Number,
       required: true,

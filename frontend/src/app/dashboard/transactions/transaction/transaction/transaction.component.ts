@@ -9,7 +9,11 @@ import { TransactionService } from '../../services/transaction.service';
 export class TransactionComponent implements OnInit {
   @Input() transactions!: any;
 
-  constructor() {}
+  constructor(private transactionService: TransactionService) {}
+
+  getCategory(category: string) {
+    return this.transactionService.getTransactionCategory(category);
+  }
 
   ngOnInit(): void {}
 }

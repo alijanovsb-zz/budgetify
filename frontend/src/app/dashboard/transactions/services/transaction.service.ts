@@ -10,8 +10,6 @@ import { ITransactionResModel } from '../transaction/transaction-res-model';
 export class TransactionService {
   constructor(private httpClient: HttpClient) {}
 
-  getTransactionCategories() {}
-
   getTransactionCategory(id: string) {
     return this.httpClient.get(
       `${environment.api}categories/getCategory/${id}`

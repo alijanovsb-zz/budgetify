@@ -1,7 +1,11 @@
 <app-spinner *ngIf="isVisible"></app-spinner>
 <div class="dashboard">
   <div class="dashboard__accounts">
-    <app-account [accounts]="accounts"></app-account>
+    <app-account
+      *ngIf="accounts"
+      [accounts]="accounts"
+      (getActiveAccountID)="getActiveAccountID($event)"
+    ></app-account>
   </div>
   <div class="dashboard__main-wrapper">
     <!--  -->

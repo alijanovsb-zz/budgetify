@@ -25,10 +25,11 @@ export class TransactionService {
     };
   }
 
-  getTransactions(): Observable<ITransactionResModel> {
+  getTransactions(cardId: string): Observable<ITransactionResModel> {
+    console.log('cardId: ', cardId);
     return this.httpClient
       .get<ITransactionResModel>(
-        `${environment.api}transactions/getTransactions`
+        `${environment.api}transactions/getTransactions/${cardId}`
       )
       .pipe(
         catchError(

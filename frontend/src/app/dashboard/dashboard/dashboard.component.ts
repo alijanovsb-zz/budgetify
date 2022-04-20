@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { IAccount } from '../account/account-model';
@@ -23,20 +23,38 @@ export class DashboardComponent implements OnInit {
   accounts!: IAccount[];
   transactionsResponce!: ITransactionResModel;
 
-  @Input()
-  ngOnInit() {
+  activeAccountId: string = '';
+  getActiveAccountID(id: string): void {
+    this.activeAccountId = id;
+    this.ngOnInit();
+  }
+
+  customDelay(time: number): Promise<void> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, time);
+    });
+  }
+
+  async ngOnInit(): Promise<void> {
     this.spinnerService.showSpinner();
 
-    this.subscribtion = this.accountService
-      .getAccounts()
-      .subscribe((accounts: IAccount[]) => {
-        this.accounts = accounts;
-        this.spinnerService.hideSpinner();
-      });
+    if (this.activeAccountId === '') {
+      this.subscribtion = this.accountService
+        .getAccounts()
+        .subscribe((accounts: IAccount[]) => {
+          this.accounts = accounts;
+        });
+    }
+
+    console.log(this.activeAccountId);
+
+    await this.customDelay(500);
 
     // await this.getTransactions();
     this.subscribtion = this.tranasctionService
-      .getTransactions()
+      .getTransactions(this.activeAccountId)
       .subscribe((transactionsResponce: ITransactionResModel) => {
         this.transactionsResponce = transactionsResponce;
 

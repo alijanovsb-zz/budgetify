@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { ITransactionResModel } from './transaction/transaction-res-model';
 
 @Component({
@@ -6,7 +12,7 @@ import { ITransactionResModel } from './transaction/transaction-res-model';
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss'],
 })
-export class TransactionsComponent implements OnInit {
+export class TransactionsComponent implements OnInit, OnChanges {
   @Input() transactionsResponce!: ITransactionResModel;
 
   transactions: ITransactionResModel['data'];
@@ -19,6 +25,9 @@ export class TransactionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.transactions = this.transactionsResponce.data;
-    console.log('this.transactions: ', this.transactions);
+  }
+
+  ngOnChanges(): void {
+    this.ngOnInit();
   }
 }

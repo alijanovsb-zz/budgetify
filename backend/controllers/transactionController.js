@@ -5,7 +5,10 @@ import Transaction from "../models/transactionModel.js";
 dotenv.config();
 
 const getTransactions = asyncHandler(async (req, res) => {
-  const transactions = await Transaction.find({ user: req.user });
+  const transactions = await Transaction.find({
+    user: req.user,
+    card: req.params.id,
+  });
 
   res.json({
     success: true,

@@ -12,13 +12,12 @@ const getCards = asyncHandler(async (req, res) => {
 });
 
 const addCard = asyncHandler(async (req, res) => {
-  const { title, category, amount, currency } = req.body;
+  const { title, amount, currency } = req.body;
 
   const user = await User.findById(req.body.user.id);
   const card = await Card.create({
-    owner: user.id,
+    user: user.id,
     title,
-    category,
     amount,
     currency,
   });

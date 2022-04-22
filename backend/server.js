@@ -29,7 +29,7 @@ app.use("/categories", categoryRoutes);
 app.use("/transactions", transactionRoutes);
 app.use("/currencies", currencyRoutes);
 
-// app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-app.listen(3000, "0.0.0.0", function () {
-  console.log("Listening to port:  " + 3000);
-});
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+// app.listen(3000, "0.0.0.0", function () {
+//   console.log("Listening to port:  " + 3000);
+// });

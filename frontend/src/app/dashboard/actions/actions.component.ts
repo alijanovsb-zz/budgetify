@@ -42,5 +42,14 @@ export class ActionsComponent implements OnInit {
     this.sortAction.emit(type);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!navigator.geolocation) {
+      console.log('first');
+    }
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
+    });
+  }
 }

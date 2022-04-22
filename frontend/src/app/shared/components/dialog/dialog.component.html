@@ -15,12 +15,16 @@
     *ngIf="currencies && formType === 'card'"
   >
     <mat-label>Currency</mat-label>
-    <mat-select required>
+    <mat-select [formControl]="currency" required>
       <mat-option *ngFor="let currency of currencies">
         {{ currency.abbreviation }}
         ({{ currency.symbol }})
       </mat-option>
     </mat-select>
+
+    <mat-error *ngIf="currency.hasError('required')">
+      Currency is <strong>required</strong> to be chosen
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field
@@ -106,7 +110,11 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="dialog__row" appearance="outline">
+  <mat-form-field
+    class="dialog__row"
+    appearance="outline"
+    *ngIf="formType === 'transaction'"
+  >
     <mat-label>Payee</mat-label>
     <input matInput [formControl]="payee" placeholder="John Smith" required />
 
@@ -140,6 +148,17 @@
       payee.invalid ||
       title.invalid
     "
+    cdkFocusInitial
+  >
+    Add a Transaction
+  </button>
+
+  <button
+    *ngIf="formType === 'card'"
+    mat-button
+    mat-dialog-close="card"
+    (click)="(onAddCard)"
+    [disabled]="currency.invalid || title.invalid"
     cdkFocusInitial
   >
     Add a Transaction

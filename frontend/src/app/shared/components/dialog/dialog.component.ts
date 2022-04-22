@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { TransactionService } from 'src/app/dashboard/transactions/services/transaction.service';
@@ -33,7 +33,8 @@ export class DialogComponent implements OnInit {
   responce: boolean = false;
 
   title = new FormControl('', [Validators.required]);
-  amount = new FormControl(0, [Validators.required, Validators.min(0)]);
+  amount = new FormControl(0, [Validators.required, Validators.min(0.001)]);
+  currency = new FormControl('', Validators.required);
   transcationType = new FormControl('', Validators.required);
   date = new FormControl('', [Validators.required]);
   payee = new FormControl('', [Validators.required, Validators.minLength(3)]);
@@ -64,6 +65,16 @@ export class DialogComponent implements OnInit {
       .subscribe((categories: ICategory) => {
         this.categoriesList = categories['data'];
       });
+  }
+
+  onAddCard(): void {
+    const cardData = [
+      {
+        title: this.title.value,
+        amount: this.amount.value,
+        user: '',
+      },
+    ];
   }
 
   onAddTransaction(): void {

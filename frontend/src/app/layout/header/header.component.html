@@ -12,23 +12,44 @@
       class="header__navigaton"
       (click)="toggle()"
     >
-      <mat-list-item class="header__navigation-item">
-        <a matLine href="#" class="header__navigation-link">Categories</a>
+      <mat-list-item
+        class="header__navigation-item"
+        [ngClass]="currentRoute() === '/categories' ? 'active' : ''"
+      >
+        <a matLine href="categories" class="header__navigation-link"
+          >Categories</a
+        >
       </mat-list-item>
-      <mat-list-item class="header__navigation-item">
-        <a matLine href="#" class="header__navigation-link">Subscriptions</a>
+      <mat-list-item
+        class="header__navigation-item"
+        [ngClass]="currentRoute() === '/subscriptions' ? 'active' : ''"
+      >
+        <a matLine href="subscriptions" class="header__navigation-link"
+          >Subscriptions</a
+        >
       </mat-list-item>
-      <mat-list-item class="header__navigation-item">
-        <a matLine href="#" class="header__navigation-link">Obligatory</a>
+      <mat-list-item
+        class="header__navigation-item"
+        [ngClass]="currentRoute() === '/obligatory' ? 'active' : ''"
+      >
+        <a matLine href="obligatory" class="header__navigation-link"
+          >Obligatory</a
+        >
       </mat-list-item>
-      <mat-list-item class="header__navigation-item">
-        <a matLine href="#" class="header__navigation-link">Statistics</a>
+      <mat-list-item
+        class="header__navigation-item"
+        [ngClass]="currentRoute() === '/statistics' ? 'active' : ''"
+      >
+        <a matLine href="statistics" class="header__navigation-link"
+          >Statistics</a
+        >
       </mat-list-item>
       <mat-list-item
         class="header__navigation-item"
         *ngIf="getRole() === 'ADMIN'"
+        [ngClass]="currentRoute() === '/admin' ? 'active' : ''"
       >
-        <a matLine href="#" class="header__navigation-link">Admin</a>
+        <a matLine href="admin" class="header__navigation-link">Admin</a>
       </mat-list-item>
     </mat-nav-list>
 

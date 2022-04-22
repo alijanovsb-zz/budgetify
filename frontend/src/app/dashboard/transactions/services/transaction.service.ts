@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ITransactionResModel } from '../transaction/transaction-res-model';
 
@@ -9,11 +9,22 @@ import { ITransactionResModel } from '../transaction/transaction-res-model';
 })
 export class TransactionService {
   constructor(private httpClient: HttpClient) {}
+  activeCardID: string = '';
 
   getTransactionCategory(id: string) {
     return this.httpClient.get(
       `${environment.api}categories/getCategory/${id}`
     );
+  }
+
+  addTransaction(data: ITransactionResModel['data']) {
+    if (data) {
+      data.map((item) => {
+        item.card = this.activeCardID;
+      });
+    }
+
+    return this.httpClient.post(`${environment.api}transactions/create`, data);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
@@ -26,7 +37,7 @@ export class TransactionService {
   }
 
   getTransactions(cardId: string): Observable<ITransactionResModel> {
-    console.log('cardId: ', cardId);
+    this.activeCardID = cardId;
     return this.httpClient
       .get<ITransactionResModel>(
         `${environment.api}transactions/getTransactions/${cardId}`

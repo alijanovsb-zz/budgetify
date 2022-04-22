@@ -1,11 +1,6 @@
 import mongoose from "mongoose";
 
 const categorySchema = new mongoose.Schema({
-  categoryRef: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    unique: true,
-  },
   name: {
     type: String,
     required: true,

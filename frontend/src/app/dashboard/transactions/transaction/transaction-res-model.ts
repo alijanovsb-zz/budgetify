@@ -2,7 +2,7 @@ export interface ITransactionResModel {
   success: boolean;
   count: number;
   data?: {
-    author: string;
+    user: string;
     card: string;
     title: string;
     categories: {

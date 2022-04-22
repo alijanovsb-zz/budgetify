@@ -22,7 +22,8 @@
     "start": "nodemon backend/server.js",
     "data:users_import": "node backend/data/seeder",
     "data:transactions": "node backend/data/import/transactions",
-    "data:currencies": "node backend/data/import/currencies"
+    "data:currencies": "node backend/data/import/currencies",
+    "data:categories": "node backend/data/import/categories"
   },
   "repository": {
     "type": "git",

@@ -13,7 +13,7 @@ router.use(auth);
 
 router.get("/getCards", getCards);
 router.post("/create", addCard);
-router.post("/edit/:id", editCard);
+router.post("/edit/", editCard);
 router.post("/delete/:id", deleteCard);
 
 export default router;

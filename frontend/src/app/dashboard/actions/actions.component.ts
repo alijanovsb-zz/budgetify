@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -23,13 +23,15 @@ export class ActionsComponent implements OnInit {
     );
   }
 
+  @Output() actionHappened: EventEmitter<string> = new EventEmitter<string>();
+
   openDialog(type: string): void {
     let dialogRef = this.dialog.open(DialogComponent, {
       data: { type: type },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Result: ', result);
+      this.actionHappened.emit(result);
     });
   }
 

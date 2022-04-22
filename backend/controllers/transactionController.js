@@ -18,26 +18,21 @@ const getTransactions = asyncHandler(async (req, res) => {
 });
 
 const createTransaction = asyncHandler(async (req, res) => {
-  const {
-    card,
-    title,
-    category,
-    amount,
-    date,
-    description,
-    attachment,
-    author,
-  } = req.body;
+  const [
+    { card, title, categories, amount, date, description, attachment, payee },
+  ] = req.body;
+  const user = req.user;
 
   const transaction = await Transaction.create({
     card,
     title,
-    category,
+    categories,
     amount,
     date: new Date(date),
     description,
     attachment,
-    author,
+    payee,
+    user,
   });
 
   res.status(201).json({

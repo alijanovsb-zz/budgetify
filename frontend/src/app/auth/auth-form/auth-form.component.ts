@@ -20,11 +20,7 @@ export class AuthFormComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   isVisible: boolean = false;
 
-  ngOnInit(): void {
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate(['dashboard']);
-    }
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     const { email, password } = this.loginForm.value;

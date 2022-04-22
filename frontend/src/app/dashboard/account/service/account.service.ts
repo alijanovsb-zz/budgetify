@@ -12,4 +12,13 @@ export class AccountService {
   getAccounts() {
     return this.httpClient.get<IAccount[]>(`${environment.api}cards/getCards`);
   }
+
+  updateAccount(data: IAccount[]) {
+    console.log('data: ', data);
+    return this.httpClient
+      .post(`${environment.api}cards/edit`, data)
+      .subscribe((res) => {
+        res;
+      });
+  }
 }

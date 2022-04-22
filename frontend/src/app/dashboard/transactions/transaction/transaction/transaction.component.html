@@ -1,49 +1,51 @@
-<!-- <ng-container *ngIf="!hasData"> No transactions </ng-container> -->
-<div class="transaction" *ngFor="let transaction of transactions">
-  <div class="transaction__content">
-    <div class="transaction__content-left">
-      <!-- <span class="transaction__category">{{
-        getCategory(transaction.categories[0].name)
-      }}</span> -->
-      <span class="transaction__category">{{
-        transaction.categories[0]?.name
-      }}</span>
-    </div>
-    <div class="transaction__content-center">
-      <div class="transaction__content-center-top">
-        <span class="transaction__title">{{ transaction.title }}</span>
+<ng-container *ngIf="!transactions"> No transactions </ng-container>
+<ng-container *ngIf="transactions">
+  <div class="transaction" *ngFor="let transaction of transactions">
+    <div class="transaction__content">
+      <div class="transaction__content-left">
+        <!-- <span class="transaction__category">{{
+          getCategory(transaction.categories[0].name)
+        }}</span> -->
+        <span class="transaction__category">{{
+          transaction.categories[0]?.name
+        }}</span>
       </div>
-
-      <div class="transaction__content-center-bottom">
-        <div class="transaction__content-center-bottom-type not-last">
-          <mat-icon
-            class="transaction__icon"
-            [ngClass]="transaction.categories[0]?.type"
-            >arrow_downward</mat-icon
-          >
-          <span class="transaction__type">{{
-            transaction.categories[0]?.type
-          }}</span>
+      <div class="transaction__content-center">
+        <div class="transaction__content-center-top">
+          <span class="transaction__title">{{ transaction.title }}</span>
         </div>
 
-        <div class="transaction__content-center-bottom-date not-last">
-          <span class="transaction__date">{{
-            transaction.date | date: "dd.MM.yyyy"
-          }}</span>
-        </div>
+        <div class="transaction__content-center-bottom">
+          <div class="transaction__content-center-bottom-type not-last">
+            <mat-icon
+              class="transaction__icon"
+              [ngClass]="transaction.categories[0]?.type"
+              >arrow_downward</mat-icon
+            >
+            <span class="transaction__type">{{
+              transaction.categories[0]?.type
+            }}</span>
+          </div>
 
-        <div class="transaction__content-center-bottom-payee">
-          <span class="transaction__payee">{{ transaction.payee }}</span>
+          <div class="transaction__content-center-bottom-date not-last">
+            <span class="transaction__date">{{
+              transaction.date | date: "dd.MM.yyyy"
+            }}</span>
+          </div>
+
+          <div class="transaction__content-center-bottom-payee">
+            <span class="transaction__payee">{{ transaction.payee }}</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="transaction__content-right">
-      <span
-        class="transaction__amount"
-        [ngClass]="transaction.categories[0]?.type"
-        >{{ transaction.amount }}</span
-      >
-      <!-- Change DB type so there is only categories [Income, Expense] -->
+      <div class="transaction__content-right">
+        <span
+          class="transaction__amount"
+          [ngClass]="transaction.categories[0]?.type"
+          >{{ transaction.amount }}</span
+        >
+        <!-- Change DB type so there is only categories [Income, Expense] -->
+      </div>
     </div>
   </div>
-</div>
+</ng-container>

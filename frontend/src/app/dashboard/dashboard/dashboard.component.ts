@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { IAccount } from '../account/account-model';
@@ -22,11 +22,60 @@ export class DashboardComponent implements OnInit {
   subscribtion!: Subscription;
   accounts!: IAccount[];
   transactionsResponce!: ITransactionResModel;
-
   activeAccountId: string = '';
-  getActiveAccountID(id: string): void {
+
+  actionHandler(action: string): void {
+    if (action === 'transaction') {
+      this.spinnerService.showSpinner();
+      this.subscribtion = this.getAllAccounts();
+      this.subscribtion = this.getAllTransactions(this.activeAccountId);
+    }
+  }
+
+  getAllTransactions(id: string) {
+    return this.tranasctionService
+      .getTransactions(id)
+      .subscribe((transactionsResponce: ITransactionResModel) => {
+        this.transactionsResponce = transactionsResponce;
+
+        this.spinnerService.hideSpinner();
+      });
+  }
+
+  setActiveAccountID(id: string): void {
     this.activeAccountId = id;
-    this.ngOnInit();
+    this.getAllTransactions(id);
+  }
+
+  getAllAccounts() {
+    return this.accountService
+      .getAccounts()
+      .subscribe((accounts: IAccount[]) => {
+        this.accounts = accounts;
+
+        this.spinnerService.hideSpinner();
+      });
+  }
+
+  async updateAccountBalance(balance: IAccount['amount']): Promise<void> {
+    let data: IAccount[] = [
+      {
+        _id: this.activeAccountId,
+        amount: balance,
+        owner: '',
+        currency: '',
+        title: '',
+      },
+    ];
+    this.spinnerService.showSpinner();
+    this.accountService.updateAccount(data);
+
+    await this.customDelay(500);
+
+    this.getAllAccounts();
+    this.spinnerService.getSpinnerState$().subscribe((state: boolean) => {
+      this.isVisible = state;
+    });
   }
 
   customDelay(time: number): Promise<void> {
@@ -41,25 +90,12 @@ export class DashboardComponent implements OnInit {
     this.spinnerService.showSpinner();
 
     if (this.activeAccountId === '') {
-      this.subscribtion = this.accountService
-        .getAccounts()
-        .subscribe((accounts: IAccount[]) => {
-          this.accounts = accounts;
-        });
+      this.subscribtion = this.getAllAccounts();
     }
-
-    console.log(this.activeAccountId);
 
     await this.customDelay(500);
 
-    // await this.getTransactions();
-    this.subscribtion = this.tranasctionService
-      .getTransactions(this.activeAccountId)
-      .subscribe((transactionsResponce: ITransactionResModel) => {
-        this.transactionsResponce = transactionsResponce;
-
-        this.spinnerService.hideSpinner();
-      });
+    this.subscribtion = this.getAllTransactions(this.activeAccountId);
 
     this.spinnerService.getSpinnerState$().subscribe((state: boolean) => {
       this.isVisible = state;

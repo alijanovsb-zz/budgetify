@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TransactionService } from '../../services/transaction.service';
+import { ITransactionResModel } from '../transaction-res-model';
 
 @Component({
   selector: 'app-transaction',

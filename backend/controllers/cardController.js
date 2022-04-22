@@ -27,7 +27,6 @@ const addCard = asyncHandler(async (req, res) => {
     res.status(201).json({
       id: card.id,
       title: card.title,
-      category: card.category,
       amount: card.amount,
       currency: card.currency,
     });
@@ -37,26 +36,30 @@ const addCard = asyncHandler(async (req, res) => {
 });
 
 const editCard = asyncHandler(async (req, res) => {
-  const card = await Card.findById(req.params.id);
+  const card = await Card.findById(req.body);
 
   if (!card) {
     res.status(404);
     throw new Error("Card not found");
   }
 
-  const { title, category, amount, currency } = req.body;
+  const { title, amount, currency } = req.body[0];
 
-  card.title = title;
-  card.category = category;
-  card.amount = amount;
-  card.currency = currency;
+  if (title) {
+    card.title = title;
+  }
+  if (amount) {
+    card.amount = amount;
+  }
+  if (currency) {
+    card.currency = currency;
+  }
 
   await card.save();
 
   res.status(200).json({
     id: card.id,
     title: card.title,
-    category: card.category,
     amount: card.amount,
     currency: card.currency,
   });

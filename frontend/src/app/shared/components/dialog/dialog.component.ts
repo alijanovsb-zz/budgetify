@@ -66,39 +66,25 @@ export class DialogComponent implements OnInit {
       });
   }
 
-  onAdd(type: string) {
-    if (type === 'transaction') {
-      // const transactionData = {
-      //   title: this.title.value,
-      //   amount: this.amount.value,
-      //   transcationType: this.transcationType.value,
-      //   date: this.date.value,
-      //   payee: this.payee.value,
-      //   categories: this.categories.value,
-      //   description: this.description.value,
-      //   attachment: this.attachment.value,
-      //   card: '',
-      //   user: '',
-      // };
-      const transactionData = [
-        {
-          title: this.title.value,
-          amount: this.amount.value,
-          transcationType: this.transcationType.value,
-          date: this.date.value,
-          payee: this.payee.value,
-          categories: this.categories.value,
-          description: this.description.value,
-          attachment: this.attachment.value,
-          card: '',
-          user: '',
-        },
-      ];
-      this.subsctiption = this.transactionService
-        .addTransaction(transactionData)
-        .subscribe((res) => {
-          console.log(res);
-        });
-    }
+  onAddTransaction(): void {
+    const transactionData = [
+      {
+        title: this.title.value,
+        amount: this.amount.value,
+        transcationType: this.transcationType.value,
+        date: this.date.value,
+        payee: this.payee.value,
+        categories: this.categories.value,
+        description: this.description.value,
+        attachment: this.attachment.value,
+        card: '',
+        user: '',
+      },
+    ];
+    this.subsctiption = this.transactionService
+      .addTransaction(transactionData)
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }

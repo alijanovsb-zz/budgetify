@@ -131,7 +131,7 @@
     *ngIf="formType === 'transaction'"
     mat-button
     mat-dialog-close="transaction"
-    (click)="onAdd(formType)"
+    (click)="(onAddTransaction)"
     [disabled]="
       transcationType.invalid ||
       amount.invalid ||

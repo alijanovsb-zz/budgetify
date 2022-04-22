@@ -1,16 +1,28 @@
 <div class="action__btns">
   <div class="action__btns-upper">
-    <div class="action__btn">
+    <div
+      class="action__btn"
+      [ngClass]="actionButtonState === false ? 'disabled' : ''"
+      (click)="actionButtonState && sort('Income')"
+    >
       <mat-icon class="action__btn-icon income">arrow_downward</mat-icon>
       <span class="action__btn-text">Income</span>
     </div>
 
-    <div class="action__btn">
+    <div
+      class="action__btn"
+      [ngClass]="actionButtonState === false ? 'disabled' : ''"
+      (click)="actionButtonState && sort('Expense')"
+    >
       <mat-icon class="action__btn-icon expense">arrow_upward</mat-icon>
       <span class="action__btn-text">Expense</span>
     </div>
 
-    <div class="action__btn add" (click)="openDialog('transaction')">
+    <div
+      class="action__btn add"
+      [ngClass]="actionButtonState === false ? 'disabled' : ''"
+      (click)="actionButtonState && openDialog('transaction')"
+    >
       <mat-icon class="action__btn-icon add">add</mat-icon>
       <span class="action__btn-text">Add transaction</span>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -23,7 +23,10 @@ export class ActionsComponent implements OnInit {
     );
   }
 
-  @Output() actionHappened: EventEmitter<string> = new EventEmitter<string>();
+  @Input() actionButtonState!: boolean;
+  @Output() addActionHappened: EventEmitter<string> =
+    new EventEmitter<string>();
+  @Output() sortAction: EventEmitter<string> = new EventEmitter<string>();
 
   openDialog(type: string): void {
     let dialogRef = this.dialog.open(DialogComponent, {
@@ -31,8 +34,12 @@ export class ActionsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.actionHappened.emit(result);
+      this.addActionHappened.emit(result);
     });
+  }
+
+  sort(type: string): void {
+    this.sortAction.emit(type);
   }
 
   ngOnInit(): void {}

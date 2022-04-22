@@ -13,7 +13,10 @@ export class TransactionComponent implements OnInit {
   constructor(private transactionService: TransactionService) {}
 
   getCategory(category: string) {
-    return this.transactionService.getTransactionCategory(category);
+    if (category) {
+      return this.transactionService.getTransactionCategory(category);
+    }
+    return 0;
   }
 
   ngOnInit(): void {}

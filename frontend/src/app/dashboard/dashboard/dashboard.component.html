@@ -17,7 +17,11 @@
       ></app-transactions>
     </div>
     <div class="dashboard__actions">
-      <app-actions (actionHappened)="actionHandler($event)"></app-actions>
+      <app-actions
+        [actionButtonState]="actionButtonState"
+        (addActionHappened)="addActionHandler($event)"
+        (sortAction)="sortAction($event)"
+      ></app-actions>
     </div>
     <!--  -->
   </div>

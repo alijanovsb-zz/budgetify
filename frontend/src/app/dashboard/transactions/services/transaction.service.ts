@@ -38,6 +38,15 @@ export class TransactionService {
 
   getTransactions(cardId: string): Observable<ITransactionResModel> {
     this.activeCardID = cardId;
+    if (cardId === '') {
+      console.log('first');
+      return of({
+        data: [],
+        success: false,
+        count: 0,
+      });
+    }
+
     return this.httpClient
       .get<ITransactionResModel>(
         `${environment.api}transactions/getTransactions/${cardId}`
@@ -47,6 +56,7 @@ export class TransactionService {
           this.handleError<ITransactionResModel>('ITransactionResModel', {
             success: false,
             count: 0,
+            data: [],
           })
         )
       );

@@ -23,8 +23,9 @@ export class DashboardComponent implements OnInit {
   accounts!: IAccount[];
   transactionsResponce!: ITransactionResModel;
   activeAccountId: string = '';
+  actionButtonState: boolean = true;
 
-  actionHandler(action: string): void {
+  addActionHandler(action: string): void {
     if (action === 'transaction') {
       this.spinnerService.showSpinner();
       this.subscribtion = this.getAllAccounts();
@@ -32,11 +33,17 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  sortAction(type: string): void {
+    console.log(type);
+  }
+
   getAllTransactions(id: string) {
     return this.tranasctionService
       .getTransactions(id)
       .subscribe((transactionsResponce: ITransactionResModel) => {
         this.transactionsResponce = transactionsResponce;
+
+        this.actionButtonState = this.transactionsResponce.success;
 
         this.spinnerService.hideSpinner();
       });

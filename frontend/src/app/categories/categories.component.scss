@@ -1,0 +1,13 @@
+.categories {
+  width: 95%;
+  margin: 3em auto;
+  display: flex;
+
+  &__left {
+    width: 75%;
+  }
+
+  &__right {
+    width: 15%;
+  }
+}

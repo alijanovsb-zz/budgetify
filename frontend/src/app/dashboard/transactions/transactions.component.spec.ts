@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { TransactionsComponent } from './transactions.component';
 
@@ -8,9 +10,9 @@ describe('TransactionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TransactionsComponent ]
-    })
-    .compileComponents();
+      imports: [MatMenuModule, HttpClientTestingModule],
+      declarations: [TransactionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

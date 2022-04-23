@@ -12,7 +12,10 @@ export class AccountComponent implements OnInit {
     new EventEmitter<string>();
 
   noAccounts(): boolean {
-    return this.accounts.length === 0;
+    if (this.accounts) {
+      return this.accounts.length === 0;
+    }
+    return true;
   }
 
   private activeAccountIndex: number = 0;

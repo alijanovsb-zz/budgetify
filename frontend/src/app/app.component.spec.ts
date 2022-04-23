@@ -4,11 +4,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  const fixture = TestBed.createComponent(AppComponent);
-  const app = fixture.componentInstance;
-
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule],
       declarations: [AppComponent],
       providers: [app],

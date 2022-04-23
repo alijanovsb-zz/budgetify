@@ -29,4 +29,9 @@ describe('AccountComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have no accounts', () => {
+    component.accounts = [];
+    expect(component.noAccounts()).toBeTruthy();
+  });
 });

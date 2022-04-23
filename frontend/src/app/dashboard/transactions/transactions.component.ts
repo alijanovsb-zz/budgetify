@@ -23,7 +23,10 @@ export class TransactionsComponent implements OnInit, OnChanges {
   constructor() {}
 
   hasData(): boolean {
-    return this.transactionsResponce.count > 0;
+    if (this.transactions) {
+      return this.transactionsResponce.count > 0;
+    }
+    return false;
   }
 
   getBalance(transactions: ITransactionResModel['data']) {
@@ -43,7 +46,9 @@ export class TransactionsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.transactions = this.transactionsResponce.data;
+    if (this.transactions) {
+      this.transactions = this.transactionsResponce.data;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

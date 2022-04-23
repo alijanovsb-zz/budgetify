@@ -24,4 +24,13 @@ describe('TransactionsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have no transactions', () => {
+    component.transactionsResponce = {
+      data: [],
+      count: 0,
+      success: false,
+    };
+    expect(component.hasData()).toBeFalsy();
+  });
 });

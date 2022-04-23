@@ -44,7 +44,7 @@ export class ActionsComponent implements OnInit {
 
   ngOnInit(): void {
     if (!navigator.geolocation) {
-      console.log('first');
+      console.log('Not allowed geo location');
     }
 
     navigator.geolocation.getCurrentPosition((position) => {

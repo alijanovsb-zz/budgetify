@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { ActionsComponent } from './actions.component';
 
@@ -8,9 +9,9 @@ describe('ActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActionsComponent ]
-    })
-    .compileComponents();
+      imports: [MatDialogModule],
+      declarations: [ActionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

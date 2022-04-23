@@ -1,35 +1,70 @@
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
+  let httpClientTestingController: HttpTestingController;
 
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
-    service = new AuthService(httpClientSpy);
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, HttpClientModule],
+
+      providers: [AuthService, HttpClient],
+    });
+    service = TestBed.inject(AuthService);
+    httpClientTestingController = TestBed.inject(HttpTestingController);
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('setSession will call it on success', (done: DoneFn) => {
+  it('setSession testing', (done: DoneFn) => {
     spyOn(service as any, 'setSession');
-    const expected = {
-      apiKey: 'apiKey',
-      expiresIn: 10000,
+
+    const expectedAuthResult = {
+      apiKey: 'testApiKey',
+      expiresAt: 10000,
     };
-    httpClientSpy.get.and.returnValue(of(expected));
+
+    httpClientSpy.post.and.returnValue(of(expectedAuthResult));
     service
-      .login({ email: 'alijanov.sb@gmail.com', password: '12321' })
+      .login({ email: 'sb@gmail.com', password: '12321' })
       .subscribe(() => {
-        expect(service['setSession']).toHaveBeenCalledWith(expected);
+        expect((service as any).setSession).toHaveBeenCalledOnceWith(
+          expectedAuthResult
+        );
+        done();
       });
-    done();
+
+    const req = httpClientTestingController.expectOne({
+      method: 'POST',
+      url: `${environment.api}users/login`,
+    });
+
+    req.flush(expectedAuthResult);
+  });
+
+  it('error  setSession testing', (done: DoneFn) => {
+    spyOn(service as any, 'setSession');
+
+    httpClientSpy.post.and.returnValue(throwError(() => '401'));
+    service.login({ email: 'sb@gmail.com', password: '12321' }).subscribe({
+      error: (err) => {
+        expect((service as any).setSession).not.toHaveBeenCalled();
+        expect(err).toBe('401');
+        done();
+      },
+    });
   });
 });

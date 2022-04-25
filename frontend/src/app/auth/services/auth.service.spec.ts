@@ -18,7 +18,11 @@ describe('AuthService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, HttpClientModule],
 
-      providers: [AuthService, HttpClient],
+      providers: [
+        AuthService,
+        { provide: environment.api, useValue: 'http://localhost:3000' },
+        { provide: '', useValue: 'http://localhost:3000' },
+      ],
     });
     service = TestBed.inject(AuthService);
     httpClientTestingController = TestBed.inject(HttpTestingController);

@@ -16,8 +16,8 @@
       </button>
     </mat-menu>
   </div>
-  <div class="transaction__list" *ngIf="hasData">
+  <div class="transaction__list" *ngIf="transactions && hasData()">
     <app-transaction [transactions]="transactions"></app-transaction>
   </div>
-  <ng-container *ngIf="!hasData"> No transactions </ng-container>
+  <ng-container *ngIf="!hasData()"> No transactions </ng-container>
 </div>

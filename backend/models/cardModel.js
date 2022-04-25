@@ -12,11 +12,6 @@ const cardSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    category: {
-      type: String,
-      required: true,
-      //debit of credit
-    },
     amount: {
       type: Number,
       min: 0,

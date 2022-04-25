@@ -1,7 +1,7 @@
 <header class="header" *ngIf="isLoggedIn">
   <div class="header__content">
     <div class="header__logo">
-      <a href="/" class="header__logo-link"> Budgetify </a>
+      <a routerLink="/" class="header__logo-link"> Budgetify </a>
     </div>
 
     <!-- <mat-nav-list class="header__navigaton mobile-view-visible-true"> -->
@@ -12,23 +12,32 @@
       class="header__navigaton"
       (click)="toggle()"
     >
-      <mat-list-item class="header__navigation-item">
-        <a matLine href="#" class="header__navigation-link">Categories</a>
+      <mat-list-item class="header__navigation-item" routerLinkActive="active">
+        <a matLine routerLink="categories" class="header__navigation-link"
+          >Categories</a
+        >
       </mat-list-item>
-      <mat-list-item class="header__navigation-item">
-        <a matLine href="#" class="header__navigation-link">Subscriptions</a>
+      <mat-list-item class="header__navigation-item" routerLinkActive="active">
+        <a matLine routerLink="subscriptions" class="header__navigation-link"
+          >Subscriptions</a
+        >
       </mat-list-item>
-      <mat-list-item class="header__navigation-item">
-        <a matLine href="#" class="header__navigation-link">Obligatory</a>
+      <mat-list-item class="header__navigation-item" routerLinkActive="active">
+        <a matLine routerLink="obligatory" class="header__navigation-link"
+          >Obligatory</a
+        >
       </mat-list-item>
-      <mat-list-item class="header__navigation-item">
-        <a matLine href="#" class="header__navigation-link">Statistics</a>
+      <mat-list-item class="header__navigation-item" routerLinkActive="active">
+        <a matLine routerLink="statistics" class="header__navigation-link"
+          >Statistics</a
+        >
       </mat-list-item>
       <mat-list-item
         class="header__navigation-item"
         *ngIf="getRole() === 'ADMIN'"
+        routerLinkActive="active"
       >
-        <a matLine href="#" class="header__navigation-link">Admin</a>
+        <a matLine routerLink="admin" class="header__navigation-link">Admin</a>
       </mat-list-item>
     </mat-nav-list>
 

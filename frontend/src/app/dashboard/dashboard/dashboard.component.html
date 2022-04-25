@@ -1,7 +1,11 @@
 <app-spinner *ngIf="isVisible"></app-spinner>
 <div class="dashboard">
   <div class="dashboard__accounts">
-    <app-account [accounts]="accounts"></app-account>
+    <app-account
+      *ngIf="accounts"
+      [accounts]="accounts"
+      (getActiveAccountID)="setActiveAccountID($event)"
+    ></app-account>
   </div>
   <div class="dashboard__main-wrapper">
     <!--  -->
@@ -9,10 +13,15 @@
       <app-transactions
         *ngIf="transactionsResponce"
         [transactionsResponce]="transactionsResponce"
+        (getTotalBalance)="updateAccountBalance($event)"
       ></app-transactions>
     </div>
     <div class="dashboard__actions">
-      <app-actions></app-actions>
+      <app-actions
+        [actionButtonState]="actionButtonState"
+        (addActionHappened)="addActionHandler($event)"
+        (sortAction)="sortAction($event)"
+      ></app-actions>
     </div>
     <!--  -->
   </div>

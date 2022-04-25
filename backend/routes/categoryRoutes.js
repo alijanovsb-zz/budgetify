@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.use(auth);
 
-router.get("/getCategory/", getCategories);
+router.get("/getCategories/:id", getCategories);
 router.get("/getCategory/:id", getCategory);
 
 export default router;

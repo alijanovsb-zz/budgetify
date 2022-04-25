@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { IAccount } from '../account/account-model';
@@ -22,26 +22,87 @@ export class DashboardComponent implements OnInit {
   subscribtion!: Subscription;
   accounts!: IAccount[];
   transactionsResponce!: ITransactionResModel;
+  activeAccountId: string = '';
+  actionButtonState: boolean = true;
 
-  @Input()
-  ngOnInit() {
-    this.spinnerService.showSpinner();
+  addActionHandler(action: string): void {
+    if (action === 'transaction') {
+      this.spinnerService.showSpinner();
+      this.subscribtion = this.getAllAccounts();
+      this.subscribtion = this.getAllTransactions(this.activeAccountId);
+    }
+  }
 
-    this.subscribtion = this.accountService
-      .getAccounts()
-      .subscribe((accounts: IAccount[]) => {
-        this.accounts = accounts;
-        this.spinnerService.hideSpinner();
-      });
+  sortAction(type: string): void {
+    console.log(type);
+  }
 
-    // await this.getTransactions();
-    this.subscribtion = this.tranasctionService
-      .getTransactions()
+  getAllTransactions(id: string) {
+    return this.tranasctionService
+      .getTransactions(id)
       .subscribe((transactionsResponce: ITransactionResModel) => {
         this.transactionsResponce = transactionsResponce;
 
+        this.actionButtonState = this.transactionsResponce.success;
+
         this.spinnerService.hideSpinner();
       });
+  }
+
+  setActiveAccountID(id: string): void {
+    this.activeAccountId = id;
+    this.getAllTransactions(id);
+  }
+
+  getAllAccounts() {
+    return this.accountService
+      .getAccounts()
+      .subscribe((accounts: IAccount[]) => {
+        this.accounts = accounts;
+
+        this.spinnerService.hideSpinner();
+      });
+  }
+
+  async updateAccountBalance(balance: IAccount['amount']): Promise<void> {
+    let data: IAccount[] = [
+      {
+        _id: this.activeAccountId,
+        amount: balance,
+        owner: '',
+        currency: '',
+        title: '',
+      },
+    ];
+    this.spinnerService.showSpinner();
+    this.accountService.updateAccount(data);
+
+    await this.customDelay(500);
+
+    this.getAllAccounts();
+    this.spinnerService.getSpinnerState$().subscribe((state: boolean) => {
+      this.isVisible = state;
+    });
+  }
+
+  customDelay(time: number): Promise<void> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, time);
+    });
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.spinnerService.showSpinner();
+
+    if (this.activeAccountId === '') {
+      this.subscribtion = this.getAllAccounts();
+    }
+
+    await this.customDelay(500);
+
+    this.subscribtion = this.getAllTransactions(this.activeAccountId);
 
     this.spinnerService.getSpinnerState$().subscribe((state: boolean) => {
       this.isVisible = state;

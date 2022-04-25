@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { IAccount } from '../account-model';
 
 @Component({
@@ -8,9 +8,14 @@ import { IAccount } from '../account-model';
 })
 export class AccountComponent implements OnInit {
   @Input() accounts!: IAccount[];
+  @Output() getActiveAccountID: EventEmitter<string> =
+    new EventEmitter<string>();
 
   noAccounts(): boolean {
-    return this.accounts.length === 0;
+    if (this.accounts) {
+      return this.accounts.length === 0;
+    }
+    return true;
   }
 
   private activeAccountIndex: number = 0;
@@ -21,9 +26,14 @@ export class AccountComponent implements OnInit {
 
   setActiveAccountIndex(index: number): void {
     this.activeAccountIndex = index;
+    this.getActiveAccountID.emit(this.accounts[this.activeAccountIndex]._id);
   }
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!this.noAccounts()) {
+      this.getActiveAccountID.emit(this.accounts[this.activeAccountIndex]._id);
+    }
+  }
 }

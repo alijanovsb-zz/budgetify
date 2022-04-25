@@ -1,0 +1,166 @@
+<h1 mat-dialog-title>Details for a new {{ formType }}</h1>
+
+<div mat-dialog-content>
+  <mat-form-field class="dialog__row" appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput [formControl]="title" required />
+    <mat-error *ngIf="title.hasError('required')">
+      Title is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    class="dialog__row"
+    appearance="outline"
+    *ngIf="currencies && formType === 'card'"
+  >
+    <mat-label>Currency</mat-label>
+    <mat-select [formControl]="currency" required>
+      <mat-option *ngFor="let currency of currencies">
+        {{ currency.abbreviation }}
+        ({{ currency.symbol }})
+      </mat-option>
+    </mat-select>
+
+    <mat-error *ngIf="currency.hasError('required')">
+      Currency is <strong>required</strong> to be chosen
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    class="dialog__row"
+    appearance="outline"
+    *ngIf="formType === 'transaction'"
+  >
+    <mat-label>Type</mat-label>
+    <mat-select
+      #type
+      (selectionChange)="onSelectChange(type.value)"
+      [ngModel]="type"
+      name="typeSelect"
+      [formControl]="transcationType"
+      required
+    >
+      <mat-option value="Income">Income</mat-option>
+      <mat-option value="Expense">Expense</mat-option>
+    </mat-select>
+    <mat-error *ngIf="transcationType.hasError('required')">
+      Type is <strong>required</strong> to be either income or expense
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    appearance="outline"
+    *ngIf="categoriesList && formType === 'transaction'"
+  >
+    <mat-label>Categories</mat-label>
+    <mat-select
+      [formControl]="categories"
+      multiple
+      [disabled]="isSelectDisabled"
+    >
+      <mat-option *ngFor="let category of categoriesList" [value]="category">{{
+        category.name
+      }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="categories.hasError('required')">
+      Select at least one <strong> category </strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    class="dialog__row"
+    appearance="outline"
+    *ngIf="formType === 'transaction'"
+  >
+    <mat-label>Amount</mat-label>
+    <!-- card's used currency -->
+    <span matPrefix>$ &nbsp;</span>
+    <input
+      type="number"
+      matInput
+      placeholder="123.45"
+      [disabled]="formType === 'transaction'"
+      [formControl]="amount"
+    />
+    <mat-hint>Please provide only non-negative value</mat-hint>
+    <mat-error *ngIf="amount.hasError('required') || amount.hasError('min')">
+      Provide a <strong> valid amount </strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    appearance="outline"
+    class="dialog__row"
+    *ngIf="formType === 'transaction'"
+  >
+    <mat-label>Date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="dp3"
+      [formControl]="date"
+      placeholder="MM/DD/YYYY"
+      readonly
+    />
+    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+    <mat-datepicker #dp3></mat-datepicker>
+
+    <mat-error *ngIf="date.hasError('required')">
+      Choose a <strong> valid date </strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    class="dialog__row"
+    appearance="outline"
+    *ngIf="formType === 'transaction'"
+  >
+    <mat-label>Payee</mat-label>
+    <input matInput [formControl]="payee" placeholder="John Smith" required />
+
+    <mat-error *ngIf="payee.hasError('required')">
+      Provide a <strong> payee </strong>
+    </mat-error>
+    <mat-error *ngIf="payee.hasError('minlength')">
+      Provide a <strong> payee </strong> name at least with
+      <strong>3 letters</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="dialog__row" appearance="outline">
+    <mat-label>Leave a comment(Optional)</mat-label>
+    <textarea matInput placeholder="Addtional details..."></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+
+  <button
+    *ngIf="formType === 'transaction'"
+    mat-button
+    mat-dialog-close="transaction"
+    (click)="(onAddTransaction)"
+    [disabled]="
+      transcationType.invalid ||
+      amount.invalid ||
+      date.invalid ||
+      categories.invalid ||
+      payee.invalid ||
+      title.invalid
+    "
+    cdkFocusInitial
+  >
+    Add a Transaction
+  </button>
+
+  <button
+    *ngIf="formType === 'card'"
+    mat-button
+    mat-dialog-close="card"
+    (click)="(onAddCard)"
+    [disabled]="currency.invalid || title.invalid"
+    cdkFocusInitial
+  >
+    Add a Transaction
+  </button>
+</div>

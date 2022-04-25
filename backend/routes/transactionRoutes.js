@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.use(auth);
 
-router.get("/getTransactions", getTransactions);
+router.get("/getTransactions/:id", getTransactions);
 router.post("/create", createTransaction);
 router.post("/edit/:id", editTransaction);
 router.post("/delete/:id", deleteTransaction);

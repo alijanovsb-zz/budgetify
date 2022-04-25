@@ -5,7 +5,7 @@ import Category from "../models/categoryModel.js";
 dotenv.config();
 
 export const getCategories = asyncHandler(async (req, res) => {
-  const categories = await Category.find();
+  const categories = await Category.find({ type: req.params.id });
 
   res.status(200).json({
     success: true,

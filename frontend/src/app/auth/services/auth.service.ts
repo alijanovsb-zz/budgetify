@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { catchError, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IAuthResult } from '../model/auth-model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +12,11 @@ export class AuthService {
 
   login(credentials: { email: string; password: string }) {
     return this.httpClient
-      .post(`${environment.api}users/login`, credentials)
-      .pipe(tap((res: any) => this.setSession(res)));
+      .post<IAuthResult>(`${environment.api}users/login`, credentials)
+      .pipe(
+        tap((res: IAuthResult) => this.setSession(res)),
+        catchError((err) => throwError(() => err))
+      );
   }
 
   logout(): void {
@@ -28,7 +32,7 @@ export class AuthService {
     return localStorage.getItem('token') || 'N/A';
   }
 
-  private setSession(authResult: any): void {
+  private setSession(authResult: IAuthResult) {
     localStorage.setItem('token', authResult.token);
     let tokenTime = JSON.parse(atob(authResult.token.split('.')[1]));
     tokenTime = tokenTime.exp * 1000;

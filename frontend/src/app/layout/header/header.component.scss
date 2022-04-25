@@ -50,6 +50,10 @@
     transform: translate(100%);
     transition: transform 0.5s ease-in-out;
 
+    & .active {
+      border-bottom: 1px solid #000;
+    }
+
     @media (min-width: vars.$lg) {
       transform: none;
       flex-direction: row;

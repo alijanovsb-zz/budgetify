@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,8 @@ export class HeaderComponent {
 
   @Output() logout: EventEmitter<void> = new EventEmitter<void>();
   @Output() toggleSidebar: EventEmitter<void> = new EventEmitter<void>();
-  @Output() toggleSidebar1: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor() {}
+  constructor(private router: Router) {}
   private isMobileMenuOpen: boolean = false;
 
   get isOpen(): boolean {
@@ -48,6 +48,10 @@ export class HeaderComponent {
   onLogout(): boolean {
     this.logout.emit();
     return false;
+  }
+
+  currentRoute() {
+    return this.router.url;
   }
 
   public get width() {
